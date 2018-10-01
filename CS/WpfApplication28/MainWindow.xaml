@@ -4,14 +4,6 @@
         Title="MainWindow" Loaded="Window_Loaded" Height="350" Width="525" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid">
     <Grid>
         <Grid.Resources>
-            <ControlTemplate x:Key="ce">
-                <Image x:Name="PART_Editor" Height="15" Width="15" Source="pack://application:,,,/Resources/unread.bmp"/>
-                <ControlTemplate.Triggers>
-                    <DataTrigger Binding="{Binding Value}" Value="True">                    
-                        <Setter Property="Source" Value="pack://application:,,,/Resources/read.bmp" TargetName="PART_Editor"/>
-                    </DataTrigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
             <Style x:Key="slider" TargetType="{x:Type dxe:CheckEdit}">
                 <Setter Property="Template">
                     <Setter.Value>
@@ -31,8 +23,14 @@
         <dxg:GridControl HorizontalAlignment="Left" Margin="92,25,0,0" Name="gridControl1" VerticalAlignment="Top">
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="Subject" />
-                <dxg:GridColumn FieldName="IsRead" EditTemplate="{StaticResource ce}" DisplayTemplate="{StaticResource ce}"/>        
-             </dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="IsRead">
+                    <dxg:GridColumn.CellTemplate>
+                        <DataTemplate>
+                            <dxe:CheckEdit Style="{DynamicResource slider}"/>
+                        </DataTemplate>
+                    </dxg:GridColumn.CellTemplate>
+                </dxg:GridColumn>
+            </dxg:GridControl.Columns>
             <dxg:GridControl.View>
                 <dxg:TableView />
             </dxg:GridControl.View>
